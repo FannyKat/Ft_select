@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2018/11/06 16:13:26 by fcatusse          #+#    #+#             */
+/*   Updated: 2018/11/14 15:56:27 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "libft.h"
 
-int			my_outc(int c)
+char	*ft_strnstr(const char *s1, const char *s2, size_t n)
 {
-	write(0, &c, 1);
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	if (s2[0] == '\0')
+		return ((char *)s1);
+	while (s1[i] && i < n)
+	{
+		j = 0;
+		while (s2[j] && s1[i + j] == s2[j])
+			j++;
+		if (s2[j] == '\0' && j + i <= n)
+			return ((char *)s1 + i);
+		i++;
+	}
 	return (0);
-}
-
-void				init_term()
-{
-	struct termios	term;
-
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
 }

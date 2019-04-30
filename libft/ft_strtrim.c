@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2018/11/08 17:25:39 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/03/15 16:52:33 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "libft.h"
 
-int			my_outc(int c)
+char	*ft_strtrim(char const *s)
 {
-	write(0, &c, 1);
-	return (0);
-}
+	int		i;
+	int		j;
+	char	*cpy;
 
-void				init_term()
-{
-	struct termios	term;
-
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+	i = 0;
+	if (!s)
+		return (NULL);
+	j = ft_strlen(s);
+	while (s[i] && ft_isblank(s[i]))
+		i++;
+	if (i == j)
+		return (ft_strdup(""));
+	while (j > 0 && s[j - 1] && ft_isblank(s[j - 1]))
+		j--;
+	cpy = ft_strsub(s, i, j - i);
+	if (!cpy)
+		return (NULL);
+	return (cpy);
 }

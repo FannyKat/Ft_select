@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/04/09 15:33:31 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/04/09 15:34:19 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
-
-int			my_outc(int c)
+int		ft_isupper(int c)
 {
-	write(0, &c, 1);
-	return (0);
-}
-
-void				init_term()
-{
-	struct termios	term;
-
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+	return (c >= 'A' && c <= 'Z');
 }

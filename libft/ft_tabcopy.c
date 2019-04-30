@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   ft_tabcopy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/03/21 12:29:02 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/04/12 10:36:45 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "libft.h"
 
-int			my_outc(int c)
+char		**ft_tabcopy(char **tab_dest, char **tab_copy)
 {
-	write(0, &c, 1);
-	return (0);
-}
+	int		i;
 
-void				init_term()
-{
-	struct termios	term;
-
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+	i = -1;
+	if (!(tab_dest = malloc(sizeof(char *) * (ft_tablen(tab_copy) + 1))))
+		return (NULL);
+	while (tab_copy && tab_copy[++i])
+		if (!(tab_dest[i] = ft_strdup(tab_copy[i])))
+		{
+			ft_tabfree(tab_dest);
+			return (NULL);
+		}
+	tab_dest[i] = 0;
+	return (tab_dest);
 }

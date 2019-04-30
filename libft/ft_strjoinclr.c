@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   ft_strjoinclr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/04/12 09:28:15 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/04/12 09:28:36 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "libft.h"
 
-int			my_outc(int c)
+char		*ft_strjoinclr(char *s1, char *s2, int xfree)
 {
-	write(0, &c, 1);
-	return (0);
-}
+	char	*new;
 
-void				init_term()
-{
-	struct termios	term;
-
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+	if (!(new = ft_strjoin(s1, s2)))
+		return (NULL);
+	if (xfree == 1)
+	{
+		free(s1);
+		s1 = NULL;
+	}
+	if (xfree == 2)
+	{
+		free(s2);
+		s2 = NULL;
+	}
+	if (xfree == 3)
+	{
+		free(s1);
+		free(s2);
+		s1 = NULL;
+		s2 = NULL;
+	}
+	return (new);
 }

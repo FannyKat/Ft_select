@@ -1,32 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   stock_av.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/04/30 14:09:07 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/04/30 14:45:52 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int			my_outc(int c)
+static t_args		*add_elem(char *av)
 {
-	write(0, &c, 1);
-	return (0);
+	t_args			*new;
+
+	new = NULL;
+	if (!(new = malloc(sizeof(*new))))
+		return (NULL);
+	new->arg = av;
+	return (new);
 }
 
-void				init_term()
+void				stock_arg(t_select *select, char **av, int ac)
 {
-	struct termios	term;
+	int				i;
+	t_select		*head;
+	t_args			*new;
 
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+	head = select;
+	i = 0;
+	new = NULL;
+	while (++i < ac)
+	{
+		new = add_elem(av[i]);
+		printf("%s\n", new->arg);
+	}
+	new->next = NULL;
+	select = head;
 }

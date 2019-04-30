@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:51:12 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 14:46:28 by fcatusse         ###   ########.fr       */
+/*   Created: 2018/11/06 16:00:48 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/03/12 10:22:01 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "libft.h"
 
-void			my_error(char *str)
+t_list	*ft_lstnew(void const *content, size_t content_size)
 {
-	my_printf("%s\n", str);
-	exit(EXIT_FAILURE);
-}
+	t_list	*list;
 
-int			main(int ac, char **av)
-{
-	t_select	*select;
-
-	if (ac > 1)
+	if (!(list = (t_list*)ft_memalloc(sizeof(t_list))))
+		return (NULL);
+	if (content)
 	{
-		init(&select, ac, av);
-		stock_arg(select, av, ac);
-		ft_select(select);
+		if (!(list->content = ft_memalloc(content_size)))
+			return (NULL);
+		ft_memcpy(list->content, content, content_size);
+		list->size = content_size;
 	}
 	else
-		my_printf("Usage : ./ft_select [...]\n");
-	return (0);
+	{
+		list->content = NULL;
+		list->size = 0;
+	}
+	list->next = NULL;
+	return (list);
 }

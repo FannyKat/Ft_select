@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2018/11/15 13:51:19 by fcatusse          #+#    #+#             */
+/*   Updated: 2018/11/15 13:54:51 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "libft.h"
 
-int			my_outc(int c)
+char	*ft_strrev(char *str)
 {
-	write(0, &c, 1);
-	return (0);
-}
+	int		c;
+	int		size;
+	char	tmp;
 
-void				init_term()
-{
-	struct termios	term;
-
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+	c = 0;
+	size = 0;
+	if (!str)
+		return (NULL);
+	while (str[size])
+		size++;
+	size -= 1;
+	while (c < size)
+	{
+		tmp = str[size];
+		str[size] = str[c];
+		str[c] = tmp;
+		c++;
+		size--;
+	}
+	return (str);
 }

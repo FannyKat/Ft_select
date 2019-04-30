@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   function.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/03/15 11:59:32 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/03/15 13:03:28 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "libft.h"
 
-int			my_outc(int c)
+void	fun_c(va_list *ap)
 {
-	write(0, &c, 1);
-	return (0);
+	ft_putchar(va_arg(*ap, int));
 }
 
-void				init_term()
+void	fun_s(va_list *ap)
 {
-	struct termios	term;
+	ft_putstr(va_arg(*ap, char*));
+}
 
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+void	fun_d(va_list *ap)
+{
+	ft_putnbr(va_arg(*ap, int));
 }

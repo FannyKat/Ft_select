@@ -1,16 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/04/30 09:52:18 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/04/30 11:30:44 by fcatusse         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_select.h"
 
-void		get_caps(t_term *caps, char *term)
+void				get_caps(t_term *caps, char *term)
 {
-	char	bp[1024];
-	char	area[2048];
+	char			bp[1024];
+	char			area[2048];
 
 	if (tgetent(bp, term) != 1)
 		my_error("getent error");
 	caps->cm = tgetstr("cm", (char**)&area);
+	caps->cl = tgetstr("cl", (char**)&area);
+	caps->dl = tgetstr("dl", (char**)&area);
+	caps->kb = tgetstr("kb", (char**)&area);
+	caps->kD = tgetstr("kD", (char**)&area);
+	caps->kl = tgetstr("kl", (char**)&area);
+	caps->kr = tgetstr("kr", (char**)&area);
+	caps->ve = tgetstr("ve", (char**)&area);
+	caps->vi = tgetstr("vi", (char**)&area);
+	caps->se = tgetstr("se", (char**)&area);
+	caps->so = tgetstr("so", (char**)&area);
+	caps->ue = tgetstr("ue", (char**)&area);
+	caps->us = tgetstr("us", (char**)&area);
 }
 
-void		get_size(t_term *term)
+void				get_size(t_term *term)
 {
 	struct winsize	size;
 
@@ -20,10 +44,10 @@ void		get_size(t_term *term)
 	term->li = size.ws_col;
 }
 
-t_term		*init_termcaps()
+t_term				*init_termcaps()
 {
-	t_term	*termcaps;
-	char	*term;
+	t_term			*termcaps;
+	char			*term;
 
 	termcaps = ft_memalloc(sizeof(*termcaps));
 	if (!(term = getenv("TERM")))
@@ -33,7 +57,7 @@ t_term		*init_termcaps()
 	return (termcaps);
 }
 
-void	init(t_select **select, int ac, char **av)
+void				init(t_select **select, int ac, char **av)
 {
 	*select = ft_memalloc(sizeof(**select));
 	(*select)->termcap = init_termcaps();

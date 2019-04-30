@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/30 10:18:53 by fcatusse         ###   ########.fr       */
+/*   Created: 2018/11/06 16:14:13 by fcatusse          #+#    #+#             */
+/*   Updated: 2018/11/14 17:16:09 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_select.h"
+#include "libft.h"
 
-int			my_outc(int c)
+char	*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	write(0, &c, 1);
-	return (0);
-}
+	char		*copy;
+	int			i;
 
-void				init_term()
-{
-	struct termios	term;
-
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON|ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+	if (!s)
+		return (0);
+	if (start > ft_strlen(s))
+		return (NULL);
+	if (!(copy = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	copy[len] = '\0';
+	while (len--)
+	{
+		copy[i] = s[start];
+		i++;
+		start++;
+	}
+	return (copy);
 }
