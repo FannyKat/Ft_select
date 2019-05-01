@@ -12,14 +12,18 @@
 
 #include "ft_select.h"
 
-void		check_arrow(t_select *select, char *buff)
+void		arrow_keys(t_select *select, char *buff)
 {
-	char	*arrow;
-
-	arrow = buff;
-	if (ft_strlen(buff) >= 3 && buff[0] == 27)
+	if (!ft_strcmp(buff, select->termcap->kr))
 	{
-		
+		if (select->pos->next)
+			select->pos = select->pos->next;
+		else
+			select->pos = select->args;
 	}
-	return (buff);
+	else if (!ft_strcmp(buff, select->termcap->kl))
+	{
+		if (select->pos->prev)
+			select->pos = select->pos->prev;
+	}
 }

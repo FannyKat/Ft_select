@@ -1,6 +1,7 @@
 NAME 	=	ft_select
 
-SRC 	=	init.c main.c init_term.c ft_select.c deal_keys.c stock_av.c\
+SRC 	=	init.c main.c init_term.c display.c ft_select.c deal_keys.c stock_av.c\
+		arrow.c\
 
 INC		=	ft_select.h
 

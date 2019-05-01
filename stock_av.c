@@ -23,20 +23,42 @@ static t_args		*add_elem(char *av)
 	return (new);
 }
 
+static void		stock_ptr(t_args **head, t_args **new, t_args **prev)
+{
+	if (!(*head))
+	{
+		*head = *new;
+		*prev = *new;
+		(*head)->next = NULL;
+		(*head)->prev = NULL;
+	}
+	else
+	{
+		(*prev)->next = *new;
+		(*new)->prev = *prev;
+		*prev = *new;
+	}
+}
+
 void				stock_arg(t_select *select, char **av, int ac)
 {
-	int				i;
-	t_select		*head;
+	int			i;
+	t_args			*head;
 	t_args			*new;
+	t_args			*prev;
 
-	head = select;
 	i = 0;
 	new = NULL;
+	prev = NULL;
+	head = NULL;
 	while (++i < ac)
 	{
 		new = add_elem(av[i]);
-		printf("%s\n", new->arg);
+		stock_ptr(&head, &new, &prev);
 	}
 	new->next = NULL;
-	select = head;
+	select->pre_arg = new;
+	select->args = head;
+	select->pos = head;
+	printf("%s\n", select->args->arg);
 }
