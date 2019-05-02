@@ -1,45 +1,54 @@
-NAME 	=	ft_select
+NAME	= ft_select
 
-SRC 	=	init.c main.c init_term.c display.c ft_select.c deal_keys.c stock_av.c\
-		arrow.c\
+SRC_DIR	= ./src/
+SRCS	= $(shell ls $(SRC_DIR) | grep -E ".+\.c")
+SRC		= $(addprefix $(SRC_DIR), $(SRCS))
+INC		= ./inc/
+OBJ_DIR	= ./objs/
+OBJS	= $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
-INC		=	ft_select.h
+LIB_DIR	= ./libft/
+LIB		= ./libft/libft.a
 
-OBJ_DIR =	obj 
-
-OBJ		=	$(SRC:.c=.o)
-
-CC		=	clang -I /usr/local/include
-
-CFLAGS	+=	-Wall -Wextra #-Werror
+CC		= gcc
+CFLAGS	= -Wall -Werror -Wextra
 
 PINK	=	\033[35;5;108m
 PURPLE	=	\033[38;5;141m
 MAGENTA	=	\033[38;5;177m
 END		=	\033[0m
 
-$(NAME):	lib $(OBJ)
-	@$(CC) $(CFLAGS) ${SRC} ./libft/libft.a -ltermcap -o $(NAME)
-	@echo "${PINK}FT_SELECT IS READY ✓${END}"
-
-all:		$(NAME)
+all: $(OBJ_DIR) $(LIB) $(NAME)
 
 lib:
-	@$(MAKE) -C libft
+	@make -C $(LIB_DIR)
 	@echo "${MAGENTA}LIBRARY COMPILED ✓${END}"
 
-$(OBJ):		$(INC)
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+
+$(OBJ_DIR)%.o:$(SRC_DIR)%.c
+	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -o $@ -c $<
+
+$(NAME): lib $(OBJS)
+	@$(CC) $(CFLAGS) -ltermcap -o $(NAME) $(OBJS) $(LIB)
+	@echo "${PINK}FT_SELECT IS READY ✓${END}"	
+
+$(LIB):
+	@make -C $(LIB_DIR)
+
+$(OBJS):	$(INC) 
 
 clean:
-	@/bin/rm -rf $(OBJ)
-	@make -C ./libft/ clean
+	@rm -rf $(OBJ_DIR)
+	@make -C $(LIB_DIR) clean
 	@echo "${PURPLE}clean objs ✗${END}"
 
-fclean:		clean
-	@/bin/rm -rf $(NAME)
-	@make -C ./libft/ fclean
+fclean: clean
+	@rm -rf $(NAME)
+	@make -C $(LIB_DIR) fclean
 	@echo "${PURPLE}clean $(NAME) ✗${END}"
 
-re:		fclean all
+re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all fclean clean re]]]]
