@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_term.c                                        :+:      :+:    :+:   */
+/*   free_select.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:34:28 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/03 15:10:09 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/05/03 10:21:33 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/05/03 15:11:10 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 
-int					my_outc(int c)
+void		free_select(t_select *select)
 {
-	write(0, &c, 1);
-	return (0);
-}
+	t_args	*tmp;
 
-void				init_term(void)
-{
-	struct termios	term;
-
-	if (tcgetattr(0, &term) == -1)
-		my_error("TCGETATTR error");
-	if (ioctl(0, TIOCGETA, &term) < 0)
-		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON | ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
-		my_error("TCSETS error");
+	tmp = NULL;
+	free(select->termcap);
+	while (select->next)
+	{
+		tmp = select->args->next;
+		free(select->args);
+		select->args = tmp;
+	}
+	free(select);
 }

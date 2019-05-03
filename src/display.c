@@ -6,11 +6,19 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/02 14:33:52 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:01:56 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+
+void			display_menu(void)
+{
+	ft_putstr_fd(" ___  _____    _____  __ __\n", 0);
+	ft_putstr_fd("| __| |_  _|   |_ /_/ __ __ __ __\n", 0);
+	ft_putstr_fd("| _|    | |     _/ /   __ __ __ __\n", 0);
+	ft_putstr_fd("|_|     |_|____|___| __ __ __\n", 0);
+}
 
 static void		reverse_video(t_select *select, t_args *current)
 {

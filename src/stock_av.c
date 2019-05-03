@@ -6,15 +6,15 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:09:07 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/02 12:48:50 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:07:48 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 
-static t_args		*add_elem(char *av)
+static t_args	*add_elem(char *av)
 {
-	t_args			*new;
+	t_args		*new;
 
 	new = NULL;
 	if (!(new = malloc(sizeof(*new))))

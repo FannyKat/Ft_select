@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 09:52:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/02 12:49:28 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/03 15:23:10 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void				get_caps(t_term *caps, char *term)
 	caps->cl = tgetstr("cl", (char**)&area);
 	caps->dl = tgetstr("dl", (char**)&area);
 	caps->kb = tgetstr("kb", (char**)&area);
-	caps->kD = tgetstr("kD", (char**)&area);
+	caps->kdel = tgetstr("kdel", (char**)&area);
 	caps->kl = tgetstr("kl", (char**)&area);
 	caps->kr = tgetstr("kr", (char**)&area);
 	caps->ve = tgetstr("ve", (char**)&area);
@@ -44,7 +44,7 @@ void				get_size(t_term *term)
 	term->li = size.ws_col;
 }
 
-t_term				*init_termcaps()
+t_term				*init_termcaps(void)
 {
 	t_term			*termcaps;
 	char			*term;

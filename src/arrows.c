@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   arrow.c                                            :+:      :+:    :+:   */
+/*   arrows.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 11:38:21 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/02 12:49:06 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/05/03 11:17:21 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/05/03 15:15:52 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ char		*check_arrow(char *buff)
 				arrow = ft_strdup("kl");
 			else if (buff[2] == 'C')
 				arrow = ft_strdup("kr");
-
+			else if (buff[2] == 'A')
+				arrow = ft_strdup("ku");
+			else if (buff[2] == 'B')
+				arrow = ft_strdup("kd");
 		}
 		return (arrow);
 	}
