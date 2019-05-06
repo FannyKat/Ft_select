@@ -6,13 +6,47 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:17:21 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/03 15:15:52 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/06 19:45:19 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 
-void		arrow_keys(t_select *select, char *buff)
+static void		move_up(t_select *select, char *buff)
+{
+	int			i;
+
+	i = select->nb_col + 1;
+	if (!ft_strcmp(buff, "ku"))
+	{
+		while (--i)
+		{
+			if (select->pos->prev)
+				select->pos = select->pos->prev;
+			else
+				select->pos = select->last_arg;
+		}
+	}
+}
+
+static void		move_down(t_select *select, char *buff)
+{
+	int			i;
+
+	i = select->nb_col + 1;
+	if (!ft_strcmp(buff, "kd"))
+	{
+		while (--i)
+		{
+			if (select->pos->next)
+				select->pos = select->pos->next;
+			else
+				select->pos = select->args;
+		}
+	}
+}
+
+void			arrow_keys(t_select *select, char *buff)
 {
 	if (!ft_strcmp(buff, "kr"))
 	{
@@ -26,13 +60,15 @@ void		arrow_keys(t_select *select, char *buff)
 		if (select->pos->prev)
 			select->pos = select->pos->prev;
 		else
-			select->pos = select->args;
+			select->pos = select->last_arg;
 	}
+	move_up(select, buff);
+	move_down(select, buff);
 }
 
-char		*check_arrow(char *buff)
+char			*check_arrow(char *buff)
 {
-	char	*arrow;
+	char		*arrow;
 
 	arrow = buff;
 	if (ft_strlen(buff) >= 3 && buff[0] == 27)

@@ -1,34 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   padding.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:51:12 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/06 17:34:40 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/05/06 13:52:27 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/05/06 14:14:21 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 
-void			my_error(char *str)
+int				get_max_len(t_select *select)
 {
-	my_printf("%s\n", str);
-	exit(EXIT_FAILURE);
-}
+	t_args		*tmp;
+	int			len;
 
-int			main(int ac, char **av)
-{
-	t_select	*select;
-
-	if (ac > 1)
+	len = 0;
+	tmp = select->args;
+	while (tmp->next)
 	{
-		init(&select);
-		stock_arg(select, av, ac);
-		ft_select(select);
+		if (len < (int)ft_strlen(tmp->arg))
+			len = ft_strlen(tmp->arg);
+		tmp = tmp->next;
 	}
-	else
-		my_printf("Usage : ./ft_select [...]\n");
-	return (0);
+	return (len);
 }
+
+void		padding(int nb, int fd)
+{
+	int		i;
+
+	i = 0;
+	while (nb >= 10)
+	{
+		nb -= 10;
+		i++;
+	}
+	while (i--)
+		write(1, "          ", 10);
+	write(fd, "          ", nb);
+}
+
+

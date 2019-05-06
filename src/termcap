@@ -1,0 +1,50 @@
+arrows.c:		if (select->pos->next)
+arrows.c:			select->pos = select->pos->next;
+arrows.c:			select->pos = select->args;
+arrows.c:		if (select->pos->prev)
+arrows.c:			select->pos = select->pos->prev;
+arrows.c:			select->pos = select->pre_arg;
+deal_keys.c:		if (select->pos->choice == FALSE)
+deal_keys.c:			select->pos->choice = TRUE;
+deal_keys.c:			select->pos->choice = FALSE;
+deal_keys.c:		if (select->pos->next)
+deal_keys.c:			select->pos = select->pos->next;
+deal_keys.c:			select->pos = select->args;
+del_bs_keys.c:	tmp_next = select->pos->next;
+del_bs_keys.c:	tmp_prev = select->pos->prev;
+del_bs_keys.c:	free(select->pos);
+del_bs_keys.c:		select->pos = tmp_next;
+del_bs_keys.c:		select->args = tmp_next;
+del_bs_keys.c:		select->pos = tmp_next;
+del_bs_keys.c:		select->pos = tmp_prev;
+del_bs_keys.c:		select->pos->choice = FALSE;
+del_bs_keys.c:		if (!select->pos)
+display.c:	if (current == select->pos)
+display.c:		xtputs(select->termcap->us, 1, my_outc);
+display.c:		xtputs(select->termcap->ue, 1, my_outc);
+display.c:		xtputs(select->termcap->so, 1, my_outc);
+display.c:		xtputs(select->termcap->se, 1, my_outc);
+display.c:	current = select->args;
+display.c:		xtputs(tgoto(select->termcap->cm, x, y), 1, my_outc);
+free_select.c:	free(select->termcap);
+free_select.c:	while (select->next)
+free_select.c:		tmp = select->args->next;
+free_select.c:		free(select->args);
+free_select.c:		select->args = tmp;
+ft_select.c:	current = select->args;
+ft_select.c:	xtputs(select->termcap->cl, 1, my_outc);
+ft_select.c:	xtputs(select->termcap->cl, 1, my_outc);
+ft_select.c:	xtputs(select->termcap->vi, 1, my_outc);
+ft_select.c:		xtputs(select->termcap->cl, 1, my_outc);
+ft_select.c:		get_size(select->termcap);
+ft_select.c:	xtputs(select->termcap->ve, 1, my_outc);
+init_reset_term.c:	xtputs(select->termcap->cl, 1, my_outc);
+init_reset_term.c:	xtputs(select->termcap->ve, 1, my_outc);
+signals.c:	xtputs(g_select->termcap->vi, 1, my_outc);
+signals.c:	xtputs(g_select->termcap->cl, 1, my_outc);
+signals.c:	xtputs(g_select->termcap->ve, 1, my_outc);
+signals.c:	xtputs(g_select->termcap->ve, 1, my_outc);
+signals.c:	get_size(g_select->termcap);
+stock_av.c:	select->pre_arg = new;
+stock_av.c:	select->args = head;
+stock_av.c:	select->pos = head;

@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:36:44 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/03 17:03:09 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/06 20:13:16 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void		stop_signal(int sig)
 static void		continue_signal(int sig)
 {
 	(void)sig;
-	init_term(g_select);
+	init_term();
 	xtputs(g_select->termcap->vi, 1, my_outc);
 	xtputs(g_select->termcap->cl, 1, my_outc);
 	signal(SIGTSTP, stop_signal);
@@ -47,8 +47,12 @@ static void		winch_signal(int sig)
 {
 	(void)sig;
 	xtputs(g_select->termcap->ve, 1, my_outc);
+	xtputs(g_select->termcap->cl, 1, my_outc);
 	get_size(g_select->termcap);
-	display(g_select);
+	if (g_select->termcap->col <= g_select->max_len)
+		ft_putstr_fd("Bad Window Size\n", 0);
+	else		
+		display(g_select);
 }
 
 void			catch_signals(t_select *select)

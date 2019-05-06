@@ -2,21 +2,21 @@ NAME	= ft_select
 
 SRC_DIR	= ./src/
 SRCS	= $(shell ls $(SRC_DIR) | grep -E ".+\.c")
-SRC	= $(addprefix $(SRC_DIR), $(SRCS))
-INC	= ./inc/
+SRC		= $(addprefix $(SRC_DIR), $(SRCS))
+INC		= ./inc/
 OBJ_DIR	= ./objs/
 OBJS	= $(addprefix $(OBJ_DIR), $(SRCS:.c=.o))
 
 LIB_DIR	= ./libft/
-LIB	= ./libft/libft.a
+LIB		= ./libft/libft.a
 
-CC	= gcc
-CFLAGS	= -Wall -Wextra #-g3
+CC		= gcc
+CFLAGS	= -Wall -Werror -Wextra -g3
 
 PINK	=	\033[35;5;108m
 PURPLE	=	\033[38;5;141m
 MAGENTA	=	\033[38;5;177m
-END	=	\033[0m
+END		=	\033[0m
 
 all: $(OBJ_DIR) $(LIB) $(NAME)
 
@@ -31,7 +31,7 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -o $@ -c $<
 
 $(NAME): lib $(OBJS)
-	@$(CC) $(CFLAGS)-o $(NAME) $(OBJS) $(LIB) -ltermcap
+	@$(CC) $(CFLAGS) -ltermcap -o $(NAME) $(OBJS) $(LIB)
 	@echo "${PINK}FT_SELECT IS READY ✓${END}"	
 
 $(LIB):
