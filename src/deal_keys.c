@@ -17,7 +17,7 @@ int			esc_key(t_select *select, char *buff)
 	if (buff[0] == 27 && buff[1] == 0)
 	{
 		ft_strdel(&buff);
-		xtputs(select->termcap->ve, 1, my_outc);
+		reset_term(select);
 		free_select(select);
 		exit(EXIT_SUCCESS);
 	}

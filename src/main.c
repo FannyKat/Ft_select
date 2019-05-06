@@ -22,6 +22,8 @@ int			main(int ac, char **av)
 {
 	t_select	*select;
 
+	if (!isatty(0))
+		return (0);
 	if (ac > 1)
 	{
 		init(&select);

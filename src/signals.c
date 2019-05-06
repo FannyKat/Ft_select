@@ -14,21 +14,36 @@
 
 t_select	*g_select;
 
-static void		sigstp(int sig)
+static void		stop_signal(int sig)
 {
 	(void)sig;
+	reset_term(g_select);
+	signal(SIGTSTP, SIG_DFL);
+	ioctl(0, TIOCSTI, "\x1A");
 	return ;
 }
 
-static void		sigint(int sig)
+static void		continue_signal(int sig)
 {
 	(void)sig;
+	init_term(g_select);
+	xtputs(g_select->termcap->vi, 1, my_outc);
+	xtputs(g_select->termcap->cl, 1, my_outc);
+	signal(SIGTSTP, stop_signal);
+	
+}
+
+
+static void		exit_signal(int sig)
+{
+	(void)sig;
+	reset_term(g_select);
 	free_select(g_select);
 	xtputs(g_select->termcap->ve, 1, my_outc);
 	exit(EXIT_SUCCESS);
 }
 
-static void		sigwinch(int sig)
+static void		winch_signal(int sig)
 {
 	(void)sig;
 	xtputs(g_select->termcap->ve, 1, my_outc);
@@ -39,7 +54,10 @@ static void		sigwinch(int sig)
 void			catch_signals(t_select *select)
 {
 	g_select = select;
-	if (signal(SIGTSTP, sigstp) == SIG_ERR || signal(SIGINT, sigint) == SIG_ERR
-			|| signal(SIGWINCH, sigwinch) == SIG_ERR)
+	if (signal(SIGTSTP, stop_signal) == SIG_ERR 
+		|| signal(SIGINT, exit_signal) == SIG_ERR
+		|| signal(SIGWINCH, winch_signal) == SIG_ERR
+		|| signal(SIGQUIT, exit_signal) == SIG_ERR
+		|| signal(SIGCONT, continue_signal) == SIG_ERR)
 		ft_putstr_fd("signal error\n", 2);
 }

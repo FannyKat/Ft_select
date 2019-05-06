@@ -23,7 +23,6 @@ void				get_caps(t_term *caps, char *term)
 	caps->cl = tgetstr("cl", (char**)&area);
 	caps->dl = tgetstr("dl", (char**)&area);
 	caps->kb = tgetstr("kb", (char**)&area);
-	caps->kdel = tgetstr("kdel", (char**)&area);
 	caps->kl = tgetstr("kl", (char**)&area);
 	caps->kr = tgetstr("kr", (char**)&area);
 	caps->ve = tgetstr("ve", (char**)&area);
@@ -32,6 +31,8 @@ void				get_caps(t_term *caps, char *term)
 	caps->so = tgetstr("so", (char**)&area);
 	caps->ue = tgetstr("ue", (char**)&area);
 	caps->us = tgetstr("us", (char**)&area);
+	caps->us = tgetstr("te", (char**)&area);
+	caps->us = tgetstr("ti", (char**)&area);
 }
 
 void				get_size(t_term *term)

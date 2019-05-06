@@ -43,19 +43,17 @@ static void	return_select(t_select *select)
 	{
 		if (current->choice == TRUE)
 		{
-			ft_putstr_fd(current->arg, 0);
+			ft_putstr_fd(current->arg, select->fd);
 			if (check_next(current))
 				write(1, " ", 1);
 		}
 		current = current->next;
 	}
-	free(current);
-	free_select(select);
 }
 
 void		ft_select(t_select *select)
 {
-	init_term();
+	init_term(select);
 	xtputs(select->termcap->cl, 1, my_outc);
 	xtputs(select->termcap->vi, 1, my_outc);
 	catch_signals(select);
@@ -66,6 +64,6 @@ void		ft_select(t_select *select)
 		get_size(select->termcap);
 		display(select);
 	}
-	xtputs(select->termcap->ve, 1, my_outc);
+	reset_term(select);
 	return_select(select);
 }
