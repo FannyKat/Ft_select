@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:30:27 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 19:48:21 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:51:40 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	return_select(t_select *select)
 	current = NULL;
 	current = select->args;
 	xtputs(select->termcap->cl, 1, my_outc);
-	while (current->next)
+	while (current)
 	{
 		if (current->choice == TRUE)
 		{
