@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 11:26:45 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/06 11:46:23 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 10:28:46 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,11 @@ t_select	*move_pos(t_select *select)
 	{
 		select->pos = tmp_next;
 		select->args = tmp_next;
-
 	}
 	if (tmp_next)
 	{
 		tmp_next->prev = tmp_prev;
 		select->pos = tmp_next;
-
 	}
 	else
 		select->pos = tmp_prev;

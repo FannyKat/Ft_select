@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:17:21 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/06 19:45:19 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:15:33 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static void		move_up(t_select *select, char *buff)
 {
 	int			i;
+	int			pos;
 
+	pos = select->pos->index;
 	i = select->nb_col + 1;
 	if (!ft_strcmp(buff, "ku"))
 	{
@@ -24,7 +26,10 @@ static void		move_up(t_select *select, char *buff)
 			if (select->pos->prev)
 				select->pos = select->pos->prev;
 			else
+			{
+				(pos == 1) ? i = 1 : i++;
 				select->pos = select->last_arg;
+			}
 		}
 	}
 }
@@ -32,7 +37,9 @@ static void		move_up(t_select *select, char *buff)
 static void		move_down(t_select *select, char *buff)
 {
 	int			i;
+	int			pos;
 
+	pos = select->pos->index;
 	i = select->nb_col + 1;
 	if (!ft_strcmp(buff, "kd"))
 	{
@@ -41,7 +48,11 @@ static void		move_down(t_select *select, char *buff)
 			if (select->pos->next)
 				select->pos = select->pos->next;
 			else
+			{
+				i = pos % select->nb_col;
+				(i == 0) ? i = select->nb_col : 0;
 				select->pos = select->args;
+			}
 		}
 	}
 }
@@ -84,6 +95,7 @@ char			*check_arrow(char *buff)
 			else if (buff[2] == 'B')
 				arrow = ft_strdup("kd");
 		}
+		ft_strdel(&buff);
 		return (arrow);
 	}
 	return (buff);

@@ -6,11 +6,27 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:30:27 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/06 20:15:15 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:57:37 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+
+int			get_max_len(t_select *select)
+{
+	t_args	*tmp;
+	int		len;
+
+	len = 0;
+	tmp = select->args;
+	while (tmp->next)
+	{
+		if (len < (int)ft_strlen(tmp->arg))
+			len = ft_strlen(tmp->arg);
+		tmp = tmp->next;
+	}
+	return (len);
+}
 
 static int	check_next(t_args *current)
 {
@@ -22,13 +38,9 @@ static int	check_next(t_args *current)
 	while (tmp)
 	{
 		if (tmp->choice == TRUE)
-		{
-			free(tmp);
 			return (1);
-		}
 		tmp = tmp->next;
 	}
-	free(tmp);
 	return (0);
 }
 
@@ -39,27 +51,27 @@ static void	return_select(t_select *select)
 	current = NULL;
 	current = select->args;
 	xtputs(select->termcap->cl, 1, my_outc);
-	while (current)
+	while (current->next)
 	{
 		if (current->choice == TRUE)
 		{
 			set_colors(current->arg);
-			ft_putstr_fd(current->arg, 0);
+			ft_putstr(current->arg);
 			if (check_next(current))
 				write(1, " ", 1);
 		}
 		current = current->next;
 	}
-	ft_putstr_fd("\n", 0);
+	ft_putstr("\n");
 }
 
 void		ft_select(t_select *select)
 {
-	init_term();
+	init_term(select);
 	xtputs(select->termcap->cl, 1, my_outc);
 	xtputs(select->termcap->vi, 1, my_outc);
 	select->max_len = get_max_len(select);
-	catch_signals(select);
+	my_signals(select);
 	display(select);
 	while (deal_keys(select))
 	{

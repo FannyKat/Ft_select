@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 11:11:41 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/06 11:21:08 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:17:42 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,28 @@ int					my_outc(int c)
 
 void				reset_term(t_select *select)
 {
-	struct termios	term;
-
-	if (tcgetattr(0, &term) == -1)
+	if (tcgetattr(0, &select->data) == -1)
 		my_error("TCGETATTR error");
-	term.c_lflag |= (ICANON | ECHO);
-	if (tcsetattr(0, TCSANOW, &term) == -1)
+	select->data.c_lflag |= (ICANON | ECHO);
+	if (tcsetattr(0, TCSANOW, &select->data) == -1)
 		my_error("TCSETATTR error");
 	xtputs(select->termcap->cl, 1, my_outc);
 	xtputs(select->termcap->ve, 1, my_outc);
 }
 
-void				init_term(void)
+void				init_term(t_select *select)
 {
-	struct termios	term;
-
-	if (tcgetattr(0, &term) == -1)
+	if (tcgetattr(0, &select->data) == -1)
 		my_error("TCGETATTR error");
-	if (ioctl(0, TIOCGETA, &term) < 0)
+	if (ioctl(0, TIOCGETA, &select->data) < 0)
 		my_error("TCGETS error");
-	term.c_lflag &= ~(ICANON | ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 0;
-	if (ioctl(0, TIOCSETA, &term) < 0)
+	select->data.c_lflag &= ~(ICANON | ECHO);
+	select->data.c_cc[VMIN] = 1;
+	select->data.c_cc[VTIME] = 0;
+	if (!(select->fd = open(ttyname(0), O_RDWR)))
+		my_error("Bad fd");
+	if (ioctl(0, TIOCSETA, &select->data) < 0)
 		my_error("TCSETS error");
-	if (tcsetattr(0, TCSADRAIN, &term) == -1)
+	if (tcsetattr(0, TCSADRAIN, &select->data) == -1)
 		my_error("TCSETATTR error");
 }

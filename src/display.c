@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/06 20:14:26 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:18:06 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 static int		display_keys(t_select *select, int y)
 {
+	int			fd;
+
+	fd = select->fd;
 	if (select->termcap->col < 53)
 		return (y);
-	ft_putstr_fd("\033[1;35m", 0);
-	ft_putstr_fd("\t ___________________________________________\n", 0);
-	ft_putstr_fd("\t|                                           |\n", 0);
-	ft_putstr_fd("\t|  LEFT/RIGHT ARROWS KEY : MOVE THE CURSOR. |\n", 0);
-	ft_putstr_fd("\t|   DELETE/BACKSPACE KEY : DELETE ARGUMENT. |\n", 0);
-	ft_putstr_fd("\t|        SPACE KEY       : SELECT ARGUMENT. |\n", 0);
-	ft_putstr_fd("\t|        ENTER KEY       : RETURN ARGUMENT. |\n", 0);
-	ft_putstr_fd("\t|       ESCAPE KEY       :  QUIT PROGRAM.   |\n", 0);
-	ft_putstr_fd("\t|___________________________________________|\n\n", 0);
-	ft_putstr_fd("\033[0m", 0);
+	ft_putstr_fd("\033[1;35m", fd);
+	ft_putstr_fd("\t ___________________________________________\n", fd);
+	ft_putstr_fd("\t|                                           |\n", fd);
+	ft_putstr_fd("\t|       ARROW KEYS       : MOVE THE CURSOR. |\n", fd);
+	ft_putstr_fd("\t|  DELETE/BACKSPACE KEYS : DELETE ARGUMENT. |\n", fd);
+	ft_putstr_fd("\t|        SPACE KEY       : SELECT ARGUMENT. |\n", fd);
+	ft_putstr_fd("\t|        ENTER KEY       : RETURN ARGUMENT. |\n", fd);
+	ft_putstr_fd("\t|       ESCAPE KEY       :  QUIT PROGRAM.   |\n", fd);
+	ft_putstr_fd("\t|___________________________________________|\n\n", fd);
+	ft_putstr_fd("\033[0m", fd);
 	return (10);
 }
 
@@ -52,7 +55,6 @@ void			set_colors(char *path)
 static void		set_column(t_select *select, t_args *current)
 {
 	select->nb_col = select->termcap->col / select->max_len;
-
 	if (select->max_len == 0)
 		return ;
 	if ((current->index) % select->nb_col == 0)
@@ -67,18 +69,18 @@ static void		reverse_video(t_select *select, t_args *current)
 	if (current == select->pos)
 	{
 		xtputs(select->termcap->us, 1, my_outc);
-		ft_putstr_fd(current->arg, 0);
+		ft_putstr_fd(current->arg, select->fd);
 		xtputs(select->termcap->ue, 1, my_outc);
 	}
 	else if (current->choice == TRUE)
 	{
 		xtputs(select->termcap->so, 1, my_outc);
-		ft_putstr_fd(current->arg, 0);
+		ft_putstr_fd(current->arg, select->fd);
 		xtputs(select->termcap->se, 1, my_outc);
 	}
 	else
-		ft_putstr_fd(current->arg, 0);
-	ft_putstr_fd("\033[0m", 0);
+		ft_putstr_fd(current->arg, select->fd);
+	ft_putstr_fd("\033[0m", select->fd);
 	set_column(select, current);
 }
 
@@ -86,17 +88,14 @@ void			display(t_select *select)
 {
 	int			x;
 	int			y;
-	int			len;
 	t_args		*current;
 
 	x = 0;
 	y = 0;
-	len = 0;
 	current = select->args;
 	y = display_keys(select, y);
 	while (current)
 	{
-		len = ft_strlen(current->arg);
 		xtputs(tgoto(select->termcap->cm, x, y), 1, my_outc);
 		reverse_video(select, current);
 		if (current->column == TRUE)

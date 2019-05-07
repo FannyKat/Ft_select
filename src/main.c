@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 09:51:12 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/06 17:34:40 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:17:28 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ void			my_error(char *str)
 	exit(EXIT_FAILURE);
 }
 
-int			main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	t_select	*select;
 
+	if (!isatty(0))
+		my_error("is atty");
 	if (ac > 1)
 	{
 		init(&select);

@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:36:29 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/06 19:41:30 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:38:20 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include <termcap.h>
+# include <fcntl.h>
 # include <signal.h>
 # include <termios.h>
 # include <sys/ioctl.h>
@@ -53,6 +54,7 @@ typedef	struct		s_args
 typedef struct		s_select
 {
 	struct s_term	*termcap;
+	struct termios	data;
 	struct s_select	*next;
 	struct s_args	*args;
 	struct s_args	*pos;
@@ -61,12 +63,13 @@ typedef struct		s_select
 	int				max_len;
 	int				nb_col;
 	int				ac;
+	int				fd;
 }					t_select;
 
 void				init(t_select **select);
 void				stock_arg(t_select *select, char **av, int ac);
 void				my_error(char *str);
-void				init_term(void);
+void				init_term(t_select *select);
 void				reset_term(t_select *select);
 void				ft_select(t_select *select);
 int					my_outc(int c);
@@ -78,9 +81,8 @@ void				get_size(t_term *term);
 void				display(t_select *select);
 void				xtputs(char *str, int i, int (*f)(int));
 void				free_select(t_select *select);
-void				catch_signals(t_select *select);
-int					get_max_len(t_select *select);
-void				padding(int nb, int fd);
+void				my_signals(t_select *select);
+void				xsignal(int sig, void (*f)(int));
 void				set_colors(char *path);
 
 #endif
