@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:30:27 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 18:57:37 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/07 19:48:21 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int			get_max_len(t_select *select)
 	t_args	*tmp;
 	int		len;
 
-	len = 0;
 	tmp = select->args;
+	len = ft_strlen(tmp->arg);
 	while (tmp->next)
 	{
 		if (len < (int)ft_strlen(tmp->arg))
