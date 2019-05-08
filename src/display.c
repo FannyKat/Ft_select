@@ -61,6 +61,8 @@ static void		set_column(t_select *select)
 	select->nb_col = select->termcap->col / select->max_len;
 	if (select->max_len == 0)
 		return ;
+	if (select->nb_col > select->ac)
+		select->nb_col = 0;
 }
 
 static void		reverse_video(t_select *select, t_args *current)
@@ -109,10 +111,8 @@ void			display(t_select *select)
 			y += 1;
 			i = 0;
 		}
-		else if (select->nb_col != 0)
+		else 
 			x += select->max_len + 1;
-		else
-			x += ft_strlen(current->arg) + 1;
 		current = current->next;
 	}
 }

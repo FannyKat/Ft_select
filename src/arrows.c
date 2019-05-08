@@ -12,14 +12,18 @@
 
 #include "../inc/ft_select.h"
 
+/** 
+	(select->ac -j) = Index of current position
+    		i = number of columns
+							**/
+
 static void		move_up(t_select *select, char *buff)
 {
-	int			i;
-	int			pos;
-	int			j = 0;
+	int		i;
+	int		j;
 
-	pos = select->pos->index;
 	i = select->nb_col + 1;
+	j = 0;
 	if (!ft_strcmp(buff, "ku") && select->nb_col > 0)
 	{
 		while (--i)
@@ -29,8 +33,7 @@ static void		move_up(t_select *select, char *buff)
 				select->pos = select->pos->prev;
 			else
 			{
-				i = select->nb_col - pos + 1;
-				(pos == 1) ? i = 1 : i++;
+				i = (select->ac - j) % select->nb_col + 1;
 				select->pos = select->last_arg;
 			}
 		}
@@ -98,6 +101,7 @@ char			*check_arrow(char *buff)
 			else if (buff[2] == 'B')
 				arrow = ft_strdup("kd");
 		}
+		ft_strdel(&buff);
 		return (arrow);
 	}
 	return (arrow);
