@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:36:44 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 19:18:59 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/08 18:56:11 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void		exit_signal(int sig)
 {
 	(void)sig;
 	reset_term(g_select);
+	xtputs(g_select->termcap->cl, 0, my_outc);
 	xtputs(g_select->termcap->ve, 1, my_outc);
 	free_select(g_select);
 	exit(EXIT_SUCCESS);
@@ -63,7 +64,7 @@ void			my_signals(t_select *select)
 
 	g_select = select;
 	i = 0;
-	while (++i < NSIG)
+	while (++i < 32)
 	{
 		if (i == SIGTSTP)
 			xsignal(SIGTSTP, stop_signal);

@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:30:27 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 19:51:40 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/08 18:13:37 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			get_max_len(t_select *select)
 
 	tmp = select->args;
 	len = ft_strlen(tmp->arg);
-	while (tmp->next)
+	while (tmp)
 	{
 		if (len < (int)ft_strlen(tmp->arg))
 			len = ft_strlen(tmp->arg);
@@ -55,7 +55,8 @@ static void	return_select(t_select *select)
 	{
 		if (current->choice == TRUE)
 		{
-			set_colors(current->arg);
+			select->ret = TRUE;
+			set_colors(current->arg, select);
 			ft_putstr(current->arg);
 			if (check_next(current))
 				write(1, " ", 1);

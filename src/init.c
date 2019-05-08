@@ -6,11 +6,26 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 09:52:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 13:41:24 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/08 14:15:51 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+
+int			total_len(t_select *select)
+{
+	t_args	*tmp;
+	int		total_len;
+
+	total_len = 0;
+	tmp = select->args;
+	while (tmp->next)
+	{
+		total_len += ft_strlen(tmp->arg);
+		tmp = tmp->next;
+	}
+	return (total_len);
+}
 
 void				get_caps(t_term *caps, char *term)
 {
@@ -26,6 +41,8 @@ void				get_caps(t_term *caps, char *term)
 	caps->so = tgetstr("so", NULL);
 	caps->ue = tgetstr("ue", NULL);
 	caps->us = tgetstr("us", NULL);
+	caps->te = tgetstr("te", NULL);
+	caps->ti = tgetstr("ti", NULL);
 }
 
 void				get_size(t_term *term)

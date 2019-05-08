@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 09:51:12 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 19:42:56 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/08 13:54:18 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int				main(int ac, char **av)
 		init(&select);
 		stock_arg(select, av, ac);
 		ft_select(select);
+		reset_term(select);
+		free_select(select);
 	}
 	else
 		my_printf("Usage : ./ft_select [...]\n");

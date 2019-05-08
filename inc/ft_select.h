@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:36:29 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 18:38:20 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/08 17:18:27 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef	struct		s_term
 	char			*so;
 	char			*ue;
 	char			*us;
+	char			*te;
+	char			*ti;
 	int				col;
 	int				li;
 }					t_term;
@@ -64,6 +66,7 @@ typedef struct		s_select
 	int				nb_col;
 	int				ac;
 	int				fd;
+	int				ret;
 }					t_select;
 
 void				init(t_select **select);
@@ -83,6 +86,7 @@ void				xtputs(char *str, int i, int (*f)(int));
 void				free_select(t_select *select);
 void				my_signals(t_select *select);
 void				xsignal(int sig, void (*f)(int));
-void				set_colors(char *path);
+void				set_colors(char *path, t_select *term);
+int					total_len(t_select *select);
 
 #endif

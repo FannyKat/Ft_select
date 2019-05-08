@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:21:33 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 11:03:26 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/08 13:49:59 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		free_select(t_select *select)
 
 	tmp = NULL;
 	free(select->termcap);
-	while (select->next)
+	while (select->args)
 	{
 		tmp = select->args->next;
 		free(select->args);

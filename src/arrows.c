@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:17:21 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/07 18:15:33 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/08 18:00:19 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@ static void		move_up(t_select *select, char *buff)
 {
 	int			i;
 	int			pos;
+	int			j = 0;
 
 	pos = select->pos->index;
 	i = select->nb_col + 1;
-	if (!ft_strcmp(buff, "ku"))
+	if (!ft_strcmp(buff, "ku") && select->nb_col > 0)
 	{
 		while (--i)
 		{
+			j++;
 			if (select->pos->prev)
 				select->pos = select->pos->prev;
 			else
 			{
+				i = select->nb_col - pos + 1;
 				(pos == 1) ? i = 1 : i++;
 				select->pos = select->last_arg;
 			}
@@ -41,7 +44,7 @@ static void		move_down(t_select *select, char *buff)
 
 	pos = select->pos->index;
 	i = select->nb_col + 1;
-	if (!ft_strcmp(buff, "kd"))
+	if (!ft_strcmp(buff, "kd") && select->nb_col > 0)
 	{
 		while (--i)
 		{
@@ -95,7 +98,6 @@ char			*check_arrow(char *buff)
 			else if (buff[2] == 'B')
 				arrow = ft_strdup("kd");
 		}
-		ft_strdel(&buff);
 		return (arrow);
 	}
 	return (buff);
