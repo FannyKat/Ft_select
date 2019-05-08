@@ -100,5 +100,5 @@ char			*check_arrow(char *buff)
 		}
 		return (arrow);
 	}
-	return (buff);
+	return (arrow);
 }

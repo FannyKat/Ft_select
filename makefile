@@ -31,7 +31,7 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -o $@ -c $<
 
 $(NAME): lib $(OBJS)
-	@$(CC) $(CFLAGS) -ltermcap -o $(NAME) $(OBJS) $(LIB)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB) -ltermcap 
 	@echo "${PINK}FT_SELECT IS READY ✓${END}"	
 
 $(LIB):

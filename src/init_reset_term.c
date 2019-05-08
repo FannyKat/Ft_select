@@ -34,14 +34,14 @@ void				init_term(t_select *select)
 {
 	if (tcgetattr(0, &select->data) == -1)
 		my_error("TCGETATTR error");
-	if (ioctl(0, TIOCGETA, &select->data) < 0)
+	if (ioctl(0, TCGETS, &select->data) < 0)
 		my_error("TCGETS error");
 	select->data.c_lflag &= ~(ICANON | ECHO);
 	select->data.c_cc[VMIN] = 1;
 	select->data.c_cc[VTIME] = 0;
 	if (!(select->fd = open(ttyname(0), O_RDWR)))
 		my_error("Bad fd");
-	if (ioctl(0, TIOCSETA, &select->data) < 0)
+	if (ioctl(0, TCSETS, &select->data) < 0)
 		my_error("TCSETS error");
 	if (tcsetattr(0, TCSADRAIN, &select->data) == -1)
 		my_error("TCSETATTR error");
