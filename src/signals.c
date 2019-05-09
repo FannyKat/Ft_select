@@ -6,11 +6,13 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:36:44 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 13:22:13 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:51:31 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+#include <sys/ioctl.h>
+#include <signal.h>
 
 t_select	*g_select;
 
@@ -33,6 +35,10 @@ static void		exit_signal(int sig)
 	xtputs(g_select->termcap->cl, 0, my_outc);
 	xtputs(g_select->termcap->ve, 1, my_outc);
 	free_select(g_select);
+	if (sig == 11)
+		my_error("Segmentation Fault");
+	if (sig == 6)
+		my_error("Abort Trap");
 	exit(EXIT_SUCCESS);
 }
 
@@ -57,6 +63,7 @@ static void		winch_signal(int sig)
 		ft_putstr_fd("Bad Window Size\n", 0);
 	else
 		display(g_select);
+	xtputs(g_select->termcap->vi, 1, my_outc);
 }
 
 void			my_signals(t_select *select)
@@ -68,14 +75,18 @@ void			my_signals(t_select *select)
 	while (++i < 32)
 	{
 		if (i == SIGTSTP)
-			xsignal(SIGTSTP, stop_signal);
+			xsignal(i, stop_signal);
 		else if (i == SIGINT)
-			xsignal(SIGINT, exit_signal);
+			xsignal(i, exit_signal);
 		else if (i == SIGWINCH)
-			xsignal(SIGWINCH, winch_signal);
+			xsignal(i, winch_signal);
 		else if (i == SIGQUIT)
-			xsignal(SIGQUIT, exit_signal);
+			xsignal(i, exit_signal);
 		else if (i == SIGCONT)
-			xsignal(SIGCONT, continue_signal);
+			xsignal(i, continue_signal);
+		else if (i == SIGSEGV)
+			xsignal(i, exit_signal);
+		else
+			signal(i, exit_signal);
 	}
 }

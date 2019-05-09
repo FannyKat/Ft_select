@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:36:29 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 10:43:06 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 17:00:41 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,8 @@
 
 # include "../libft/libft.h"
 # include <termcap.h>
-# include <fcntl.h>
-# include <signal.h>
 # include <termios.h>
-# include <sys/ioctl.h>
-# include <sys/stat.h>
 # include <term.h>
-# include <curses.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -56,7 +51,8 @@ typedef	struct		s_args
 typedef struct		s_select
 {
 	struct s_term	*termcap;
-	struct termios	data;
+	struct termios	old_t;
+	struct termios	new_t;
 	struct s_select	*next;
 	struct s_args	*args;
 	struct s_args	*pos;

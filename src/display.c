@@ -6,11 +6,12 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 12:08:06 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 16:39:41 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+#include <sys/stat.h>
 
 static int		display_keys(t_select *select, int y)
 {
@@ -58,9 +59,8 @@ void			set_colors(char *path, t_select *term)
 
 static void		set_column(t_select *select)
 {
-	select->nb_col = select->termcap->col / select->max_len;
-	if (select->max_len == 0)
-		return ;
+	if (select->max_len != 0)
+		select->nb_col = select->termcap->col / select->max_len;
 	if (select->nb_col > select->ac)
 		select->nb_col = 0;
 }
