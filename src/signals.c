@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:36:44 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/08 18:56:11 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 13:22:13 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@ static void		stop_signal(int sig)
 	ioctl(0, TIOCSTI, "\x1A");
 }
 
-static void		continue_signal(int sig)
-{
-	(void)sig;
-	init_term(g_select);
-	xtputs(g_select->termcap->vi, 0, my_outc);
-	xtputs(g_select->termcap->cl, 0, my_outc);
-	signal(SIGTSTP, stop_signal);
-	display(g_select);
-}
-
 static void		exit_signal(int sig)
 {
 	(void)sig;
@@ -46,11 +36,22 @@ static void		exit_signal(int sig)
 	exit(EXIT_SUCCESS);
 }
 
+static void		continue_signal(int sig)
+{
+	(void)sig;
+	init_term(g_select);
+	xtputs(g_select->termcap->vi, 0, my_outc);
+	xtputs(g_select->termcap->cl, 0, my_outc);
+	signal(SIGTSTP, stop_signal);
+	signal(SIGINT, exit_signal);
+	display(g_select);
+}
+
 static void		winch_signal(int sig)
 {
 	(void)sig;
-	xtputs(g_select->termcap->ve, 1, my_outc);
 	xtputs(g_select->termcap->cl, 1, my_outc);
+	xtputs(g_select->termcap->ve, 1, my_outc);
 	get_size(g_select->termcap);
 	if (g_select->termcap->col <= g_select->max_len)
 		ft_putstr_fd("Bad Window Size\n", 0);

@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 16:17:01 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/04/12 10:38:10 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 12:56:53 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,6 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-char				**realloc_tab(char **array, int len);
-void				ft_tabfree(char **array);
-char				**ft_tabcopy(char **tab_dest, char **tab_copy);
-void				print_tab(char **array);
-int					ft_tablen(char **array);
-int					isstart(char *s1, char *s2);
-int					ft_isupper(int c);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -53,9 +46,7 @@ void				ft_bzero(void *s1, size_t n);
 void				*ft_memcpy(void *s1, const void *s2, size_t n);
 void				*ft_memalloc(size_t size);
 size_t				ft_strlen(const char *s);
-size_t				strlen_to(const char *s, char c);
 char				*ft_strdup(const char *s1);
-char				*ft_strndup(const char *s1, int n);
 char				*strdupfree(char *s1);
 char				*ft_strcpy(char *s1, const char *s2);
 char				*ft_strncpy(char *s1, const char *s2, size_t n);
@@ -63,8 +54,6 @@ char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strncat(char *s1, const char *s2, size_t n);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
-char				*ft_strstr(const char *s1, const char *s2);
-char				*ft_strnstr(const char *s1, const char *s2, size_t n);
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
@@ -75,10 +64,6 @@ void				ft_strdel(char **as);
 void				ft_strclr(char *s);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strjoinclr(char *s1, char *s2, int xfree);
-char				*ft_strnjoinclr(char *s1, char *s2, size_t n, int free_s2);
-char				*ft_strtrim(char const *s);
-char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
