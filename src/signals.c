@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 10:36:44 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 17:51:31 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:29:14 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static void		exit_signal(int sig)
 		my_error("Segmentation Fault");
 	if (sig == 6)
 		my_error("Abort Trap");
+	if (sig == 8)
+		my_error("Floating-point exception");
 	exit(EXIT_SUCCESS);
 }
 
@@ -74,19 +76,16 @@ void			my_signals(t_select *select)
 	i = 0;
 	while (++i < 32)
 	{
-		if (i == SIGTSTP)
-			xsignal(i, stop_signal);
-		else if (i == SIGINT)
+		if (i == SIGINT || i == SIGSEGV || i == SIGQUIT || i == SIGABRT
+			|| i == SIGFPE)
 			xsignal(i, exit_signal);
+		else if (i == SIGTSTP)
+			xsignal(i, stop_signal);
 		else if (i == SIGWINCH)
 			xsignal(i, winch_signal);
-		else if (i == SIGQUIT)
-			xsignal(i, exit_signal);
 		else if (i == SIGCONT)
 			xsignal(i, continue_signal);
-		else if (i == SIGSEGV)
-			xsignal(i, exit_signal);
 		else
-			signal(i, exit_signal);
+			signal(i, SIG_IGN);
 	}
 }
