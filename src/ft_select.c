@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:30:27 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/08 18:13:37 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 12:08:24 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	check_next(t_args *current)
 	return (0);
 }
 
-static void	return_select(t_select *select)
+void		return_select(t_select *select)
 {
 	t_args	*current;
 
@@ -55,11 +55,12 @@ static void	return_select(t_select *select)
 	{
 		if (current->choice == TRUE)
 		{
-			select->ret = TRUE;
 			set_colors(current->arg, select);
+			select->ret = TRUE;
 			ft_putstr(current->arg);
 			if (check_next(current))
 				write(1, " ", 1);
+			ft_putstr_fd("\033[0m", select->fd);
 		}
 		current = current->next;
 	}
@@ -80,6 +81,5 @@ void		ft_select(t_select *select)
 		get_size(select->termcap);
 		display(select);
 	}
-	xtputs(select->termcap->ve, 1, my_outc);
 	return_select(select);
 }

@@ -6,16 +6,16 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:17:21 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/08 18:00:19 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 12:10:41 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 
-/** 
-	(select->ac -j) = Index of current position
-    		i = number of columns
-							**/
+/*
+**	(select->ac -j)  Index of current position
+**   		i number of columns
+*/
 
 static void		move_up(t_select *select, char *buff)
 {
@@ -100,9 +100,10 @@ char			*check_arrow(char *buff)
 				arrow = ft_strdup("ku");
 			else if (buff[2] == 'B')
 				arrow = ft_strdup("kd");
+			if (ft_strcmp(arrow, buff))
+				ft_strdel(&buff);
 		}
-		ft_strdel(&buff);
 		return (arrow);
 	}
-	return (arrow);
+	return (buff);
 }

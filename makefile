@@ -11,7 +11,7 @@ LIB_DIR	= ./libft/
 LIB		= ./libft/libft.a
 
 CC		= gcc
-CFLAGS	= -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -g3
 
 PINK	=	\033[35;5;108m
 PURPLE	=	\033[38;5;141m

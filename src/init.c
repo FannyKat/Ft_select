@@ -6,16 +6,16 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 09:52:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/08 14:15:51 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 12:07:37 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
 
-int			total_len(t_select *select)
+int					total_len(t_select *select)
 {
-	t_args	*tmp;
-	int		total_len;
+	t_args			*tmp;
+	int				total_len;
 
 	total_len = 0;
 	tmp = select->args;

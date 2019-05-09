@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:36:29 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/08 17:18:27 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 10:43:06 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void				my_signals(t_select *select);
 void				xsignal(int sig, void (*f)(int));
 void				set_colors(char *path, t_select *term);
 int					total_len(t_select *select);
+void				return_select(t_select *select);
 
 #endif

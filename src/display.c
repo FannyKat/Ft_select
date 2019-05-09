@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/08 19:03:44 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 12:08:06 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			set_colors(char *path, t_select *term)
 	{
 		ft_putstr_fd("\033[1;34m", term->fd);
 		return ;
-	}	
+	}
 	if (S_ISREG(buf.st_mode) && (buf.st_mode & S_IXUSR
 		|| buf.st_mode & S_IXGRP || buf.st_mode & S_IXOTH))
 		ft_putstr_fd("\033[31m", term->fd);
@@ -56,7 +56,7 @@ void			set_colors(char *path, t_select *term)
 		ft_putstr_fd("\033[1;34m", term->fd);
 }
 
-static void		set_column(t_select *select) 
+static void		set_column(t_select *select)
 {
 	select->nb_col = select->termcap->col / select->max_len;
 	if (select->max_len == 0)
@@ -74,7 +74,7 @@ static void		reverse_video(t_select *select, t_args *current)
 		xtputs(select->termcap->us, 1, my_outc);
 		ft_putstr_fd(current->arg, select->fd);
 		xtputs(select->termcap->ue, 1, my_outc);
-		(current->choice == TRUE) ?	xtputs(select->termcap->se, 1, my_outc) : 0;
+		(current->choice == TRUE) ? xtputs(select->termcap->se, 1, my_outc) : 0;
 	}
 	else if (current->choice == TRUE)
 	{
@@ -111,7 +111,7 @@ void			display(t_select *select)
 			y += 1;
 			i = 0;
 		}
-		else 
+		else
 			x += select->max_len + 1;
 		current = current->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 11:26:45 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/08 17:24:04 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 12:02:55 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	move_index(t_select *select)
 	{
 		tmp->index = i;
 		i++;
-		tmp = tmp->next;	
+		tmp = tmp->next;
 	}
 }
 
