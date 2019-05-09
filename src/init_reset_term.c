@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 11:11:41 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 17:49:42 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/09 18:33:02 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void				reset_term(t_select *select)
 	if (select->ret == FALSE)
 		xtputs(select->termcap->cl, 1, my_outc);
 	xtputs(select->termcap->ve, 1, my_outc);
-	xtputs(select->termcap->te, 1, my_outc);
 }
 
 void				init_term(t_select *select)
@@ -47,5 +46,4 @@ void				init_term(t_select *select)
 		my_error("TCSETS error");
 	if (tcsetattr(0, TCSADRAIN, &select->new_t) == -1)
 		my_error("TCSETATTR error");
-	xtputs(select->termcap->ti, 1, my_outc);
 }
