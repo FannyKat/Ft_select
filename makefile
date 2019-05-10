@@ -18,6 +18,9 @@ PURPLE	=	\033[38;5;141m
 MAGENTA	=	\033[38;5;177m
 END		=	\033[0m
 
+CR_UP	=	\033[A
+CLEAR	=	\033[K
+
 all: $(OBJ_DIR) $(LIB) $(NAME)
 
 lib:
@@ -28,7 +31,9 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)%.o:$(SRC_DIR)%.c
+	@echo "${MAGENTA}[$@]${END}"
 	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -o $@ -c $<
+	@printf "${CR_UP}${CLEAR}"
 
 $(NAME): lib $(OBJS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB) -ltermcap 

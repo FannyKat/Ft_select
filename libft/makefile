@@ -1,6 +1,6 @@
 NAME	=	libft.a
 
-FLAGS	=	-Wall -Wextra -I. -c
+FLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	$(shell ls | grep -E ".+\.c")	
 
@@ -8,15 +8,23 @@ INC		=	libft.h
 
 OBJ		= 	$(SRCS:.c=.o)
 
-$(NAME): 	$(OBJ)
-			@ar rc $(NAME) $(OBJ)
+PURPLE	=	\033[38;5;141m
+END	=	\033[0m
+
+CR_UP	=	\033[A
+CLEAR	=	\033[K
 
 all: 		$(NAME)
 
-$(OBJ):		$(INC)
+$(NAME): 	$(OBJ)
+			@ar rc $(NAME) $(OBJ)
 
-$(OBJ): 	$(SRCS)
-			@gcc $(FLAGS) $(SRCS)
+%.o:	%.c
+		@echo "${PURPLE}[$@]${END}"
+		@gcc $(FLAGS) -I . -c -o $@ $<
+		@printf "${CR_UP}${CLEAR}"
+
+$(OBJ):		$(INC)
 
 clean:
 			@rm -rf $(OBJ)
