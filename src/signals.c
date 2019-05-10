@@ -37,10 +37,12 @@ static void		exit_signal(int sig)
 	free_select(g_select);
 	if (sig == 11)
 		my_error("Segmentation Fault");
-	if (sig == 6)
+	if (sig == 6 || sig == 5)
 		my_error("Abort Trap");
 	if (sig == 8)
 		my_error("Floating-point exception");
+	if (sig == 10 || sig == 7)
+		my_error("Bus error");
 	exit(EXIT_SUCCESS);
 }
 
@@ -61,8 +63,9 @@ static void		winch_signal(int sig)
 	xtputs(g_select->termcap->cl, 1, my_outc);
 	xtputs(g_select->termcap->ve, 1, my_outc);
 	get_size(g_select->termcap);
-	if (g_select->termcap->col <= g_select->max_len)
-		ft_putstr_fd("Bad Window Size\n", 0);
+	if (g_select->termcap->col <= g_select->max_len
+	|| g_select->termcap->li <= g_select->nb_li)
+		ft_putstr_fd("Bad Window Size\n", g_select->fd);
 	else
 		display(g_select);
 	xtputs(g_select->termcap->vi, 1, my_outc);
@@ -77,7 +80,7 @@ void			my_signals(t_select *select)
 	while (++i < 32)
 	{
 		if (i == SIGINT || i == SIGSEGV || i == SIGQUIT || i == SIGABRT
-			|| i == SIGFPE)
+		|| i == SIGFPE || i == SIGBUS || i == SIGPOLL || i == SIGTRAP)
 			xsignal(i, exit_signal);
 		else if (i == SIGTSTP)
 			xsignal(i, stop_signal);

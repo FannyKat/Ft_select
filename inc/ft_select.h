@@ -43,7 +43,6 @@ typedef	struct		s_args
 	char			*stock;
 	int				choice;
 	int				index;
-	int				column;
 	struct s_args	*next;
 	struct s_args	*prev;
 }					t_args;
@@ -60,6 +59,7 @@ typedef struct		s_select
 	struct s_args	*head;
 	int				max_len;
 	int				nb_col;
+	int				nb_li;
 	int				ac;
 	int				fd;
 	int				ret;

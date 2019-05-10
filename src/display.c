@@ -49,7 +49,7 @@ void			set_colors(char *path, t_select *term)
 		ft_putstr_fd("\033[36m", term->fd);
 	else if (S_ISLNK(buf.st_mode))
 		ft_putstr_fd("\033[35m", term->fd);
-	else if (S_ISSOCK(buf.st_mode))
+	else if (S_ISSOCK(buf.st_mode) || S_ISBLK(buf.st_mode))
 		ft_putstr_fd("\033[32m", term->fd);
 	else if (S_ISCHR(buf.st_mode) || S_ISFIFO(buf.st_mode))
 		ft_putstr_fd("\033[33m", term->fd);
@@ -63,6 +63,10 @@ static void		set_column(t_select *select)
 		select->nb_col = select->termcap->col / select->max_len;
 	if (select->nb_col > select->ac)
 		select->nb_col = 0;
+	if (select->nb_col != 0)
+		select->nb_li = select->ac / select->nb_col;
+	else if (select->nb_li == 0)
+		select->nb_li =1 ;
 }
 
 static void		reverse_video(t_select *select, t_args *current)

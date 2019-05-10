@@ -30,6 +30,7 @@ int				main(int ac, char **av)
 		stock_arg(select, av, ac);
 		ft_select(select);
 		reset_term(select);
+		close(select->fd);
 		free_select(select);
 	}
 	else

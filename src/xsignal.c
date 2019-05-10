@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+#include <signal.h>
 
 void	xsignal(int sig, void (*f)(int))
 {

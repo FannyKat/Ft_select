@@ -55,8 +55,8 @@ void		return_select(t_select *select)
 	{
 		if (current->choice == TRUE)
 		{
-			set_colors(current->arg, select);
 			select->ret = TRUE;
+			set_colors(current->arg, select);
 			ft_putstr(current->arg);
 			if (check_next(current))
 				write(1, " ", 1);
