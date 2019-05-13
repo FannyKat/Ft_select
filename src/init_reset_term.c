@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 11:11:41 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 18:33:02 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 12:02:49 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void				init_term(t_select *select)
 {
 	if (tcgetattr(0, &select->old_t) == -1)
 		my_error("TCGETATTR error");
-	if (ioctl(0, TCGETS, &select->old_t) < 0)
+	if (ioctl(0, TIOCGETA, &select->old_t) < 0)
 		my_error("TCGETS error");
 	select->new_t = select->old_t;
 	select->new_t.c_lflag &= ~(ICANON | ECHO);
@@ -42,7 +42,7 @@ void				init_term(t_select *select)
 	select->new_t.c_cc[VTIME] = 0;
 	if (!(select->fd = open(ttyname(0), O_RDWR)))
 		my_error("Bad fd");
-	if (ioctl(0, TCSETS, &select->old_t) < 0)
+	if (ioctl(0, TIOCSETA, &select->old_t) < 0)
 		my_error("TCSETS error");
 	if (tcsetattr(0, TCSADRAIN, &select->new_t) == -1)
 		my_error("TCSETATTR error");

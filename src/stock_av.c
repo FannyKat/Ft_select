@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 14:09:07 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/08 18:56:21 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 13:27:27 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,27 +40,34 @@ static void		stock_ptr(t_args **head, t_args **new, t_args **prev)
 		(*new)->prev = *prev;
 		*prev = *new;
 	}
+	(*new)->next = NULL;
 }
 
 void			stock_arg(t_select *select, char **av, int ac)
 {
 	int			i;
+	int			j;
 	t_args		*head;
 	t_args		*new;
 	t_args		*prev;
 
 	i = 0;
+	j = 0;
 	new = NULL;
 	prev = NULL;
 	head = NULL;
 	while (++i < ac)
 	{
-		new = add_elem(av[i], i);
-		stock_ptr(&head, &new, &prev);
+		if (!ft_strlen(av[i]))
+			j++;
+		else
+		{
+			new = add_elem(av[i], i - j);
+			stock_ptr(&head, &new, &prev);
+		}
 	}
-	new->next = NULL;
 	select->last_arg = new;
 	select->args = head;
 	select->pos = head;
-	select->ac = ac - 1;
+	select->ac = ac - j - 1;
 }

@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 11:26:45 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 12:02:55 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 12:00:00 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,7 @@ void		del_bs_keys(t_select *select, char *buff)
 			reset_term(select);
 			exit(EXIT_SUCCESS);
 		}
+		else
+			select->max_len = get_max_len(select);
 	}
 }

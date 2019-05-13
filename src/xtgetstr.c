@@ -1,40 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   xtgetstr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/30 09:51:12 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/13 14:29:58 by fcatusse         ###   ########.fr       */
+/*   Created: 2019/05/13 13:28:57 by fcatusse          #+#    #+#             */
+/*   Updated: 2019/05/13 13:33:27 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+#include <curses.h>
 
-void			my_error(char *str)
+char		*xtgetstr(char *id, char **area)
 {
-	ft_putstr_fd(str, 2);
-	ft_putchar_fd('\n', 2);
-	exit(EXIT_FAILURE);
-}
+	char	*str;
 
-int				main(int ac, char **av)
-{
-	t_select	*select;
-
-	if (!isatty(0))
-		my_error("isatty error");
-	if (ac > 1)
-	{
-		init(&select);
-		stock_arg(select, av, ac);
-		ft_select(select);
-		reset_term(select);
-		close(select->fd);
-		free_select(select);
-	}
-	else
-		my_printf("Usage : ./ft_select [...]\n");
-	return (0);
+	if ((str = tgetstr(id, area)) == NULL)
+		my_error("tgetstr error");
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 16:39:41 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:21:37 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int		display_keys(t_select *select, int y)
 	int			fd;
 
 	fd = select->fd;
-	if (select->termcap->col < 53)
+	if (select->termcap->col < 53 || select->termcap->li < select->nb_li + 10)
 		return (y);
 	ft_putstr_fd("\033[1;35m", fd);
 	ft_putstr_fd("\n\t ___________________________________________ \n", fd);
@@ -43,7 +43,7 @@ void			set_colors(char *path, t_select *term)
 		return ;
 	}
 	if (S_ISREG(buf.st_mode) && (buf.st_mode & S_IXUSR
-		|| buf.st_mode & S_IXGRP || buf.st_mode & S_IXOTH))
+				|| buf.st_mode & S_IXGRP || buf.st_mode & S_IXOTH))
 		ft_putstr_fd("\033[31m", term->fd);
 	else if (S_ISDIR(buf.st_mode) && !S_ISLNK(buf.st_mode))
 		ft_putstr_fd("\033[36m", term->fd);
@@ -57,7 +57,7 @@ void			set_colors(char *path, t_select *term)
 		ft_putstr_fd("\033[1;34m", term->fd);
 }
 
-static void		set_column(t_select *select)
+void			set_column(t_select *select)
 {
 	if (select->max_len != 0)
 		select->nb_col = select->termcap->col / select->max_len;
@@ -66,7 +66,7 @@ static void		set_column(t_select *select)
 	if (select->nb_col != 0)
 		select->nb_li = select->ac / select->nb_col;
 	else if (select->nb_li == 0)
-		select->nb_li =1 ;
+		select->nb_li = 1;
 }
 
 static void		reverse_video(t_select *select, t_args *current)

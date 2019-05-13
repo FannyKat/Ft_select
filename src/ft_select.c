@@ -6,11 +6,23 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:30:27 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 18:32:52 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:08:57 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_select.h"
+
+int			bad_window_size(t_select *select)
+{
+	set_column(select);
+	if (select->termcap->li < select->nb_li + 1
+			|| select->termcap->col <= select->max_len)
+	{
+		ft_putstr_fd("Bad Window Size", select->fd);
+		return (1);
+	}
+	return (0);
+}
 
 int			get_max_len(t_select *select)
 {
@@ -18,6 +30,8 @@ int			get_max_len(t_select *select)
 	int		len;
 
 	tmp = select->args;
+	if (!tmp)
+		return (0);
 	len = ft_strlen(tmp->arg);
 	while (tmp)
 	{
@@ -58,13 +72,11 @@ void		return_select(t_select *select)
 			select->ret = TRUE;
 			set_colors(current->arg, select);
 			ft_putstr(current->arg);
-			if (check_next(current))
-				write(1, " ", 1);
+			(check_next(current)) ? ft_putchar(' ') : ft_putchar('\n');
 			ft_putstr_fd("\033[0m", select->fd);
 		}
 		current = current->next;
 	}
-	ft_putstr("\n");
 }
 
 void		ft_select(t_select *select)
@@ -73,13 +85,20 @@ void		ft_select(t_select *select)
 	xtputs(select->termcap->cl, 1, my_outc);
 	xtputs(select->termcap->vi, 1, my_outc);
 	select->max_len = get_max_len(select);
+	if (!select->max_len)
+	{
+		reset_term(select);
+		my_error("ft_select: error: argument's list is empty");
+	}
 	my_signals(select);
-	display(select);
+	if (!bad_window_size(select))
+		display(select);
 	while (deal_keys(select))
 	{
 		xtputs(select->termcap->cl, 1, my_outc);
 		get_size(select->termcap);
-		display(select);
+		if (!bad_window_size(select))
+			display(select);
 	}
 	return_select(select);
 }
