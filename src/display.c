@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:47:18 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/13 16:21:37 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:23:11 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			set_colors(char *path, t_select *term)
 void			set_column(t_select *select)
 {
 	if (select->max_len != 0)
-		select->nb_col = select->termcap->col / select->max_len;
+		select->nb_col = select->termcap->col / (select->max_len + 1);
 	if (select->nb_col > select->ac)
 		select->nb_col = 0;
 	if (select->nb_col != 0)

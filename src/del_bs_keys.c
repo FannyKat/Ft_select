@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 11:26:45 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/13 12:00:00 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:11:57 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_select	*move_pos(t_select *select)
 
 void		del_bs_keys(t_select *select, char *buff)
 {
-	if (buff[0] == 127 || buff[1] == 91)
+	if ((buff[0] == 127 || buff[2] == 51) && !bad_window_size(select))
 	{
 		select->pos->choice = FALSE;
 		select = move_pos(select);

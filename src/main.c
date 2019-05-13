@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 09:51:12 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/13 14:29:58 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:37:21 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ int				main(int ac, char **av)
 		free_select(select);
 	}
 	else
-		my_printf("Usage : ./ft_select [...]\n");
+		ft_putstr_fd("Usage : ./ft_select [...]\n", 2);
 	return (0);
 }

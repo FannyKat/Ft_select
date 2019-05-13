@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:36:29 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/13 15:23:14 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:52:16 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int					my_outc(int c);
 int					deal_keys(t_select *select);
 void				arrow_keys(t_select *select, char *buff);
 void				del_bs_keys(t_select *select, char *buff);
-char				*check_arrow(char *buff);
+char				*check_arrow(char *buff, t_select *select);
 void				get_size(t_term *term);
 void				display(t_select *select);
 void				xtputs(char *str, int i, int (*f)(int));
@@ -81,8 +81,9 @@ void				free_select(t_select *select);
 void				my_signals(t_select *select);
 void				xsignal(int sig, void (*f)(int));
 void				set_colors(char *path, t_select *term);
-int					get_max_len(t_select *select);
+size_t				get_max_len(t_select *select);
 void				return_select(t_select *select);
 void				set_column(t_select *select);
+int					bad_window_size(t_select *select);
 
 #endif

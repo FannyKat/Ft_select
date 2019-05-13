@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 11:35:05 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/09 11:12:10 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 16:59:57 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		enter_key(char *buff)
 
 static void		space_key(t_select *select, char *buff)
 {
-	if (buff[0] == ' ')
+	if (buff[0] == ' ' && !bad_window_size(select))
 	{
 		if (select->pos->choice == FALSE)
 			select->pos->choice = TRUE;
@@ -59,7 +59,7 @@ int				deal_keys(t_select *select)
 		ft_strdel(&buff);
 		my_error("Read error");
 	}
-	buff = check_arrow(buff);
+	buff = check_arrow(buff, select);
 	arrow_keys(select, buff);
 	space_key(select, buff);
 	esc_key(select, buff);

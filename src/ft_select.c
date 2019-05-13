@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/30 10:30:27 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/13 16:08:57 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 18:21:11 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int			bad_window_size(t_select *select)
 	return (0);
 }
 
-int			get_max_len(t_select *select)
+size_t		get_max_len(t_select *select)
 {
 	t_args	*tmp;
-	int		len;
+	size_t	len;
 
 	tmp = select->args;
 	if (!tmp)
@@ -35,7 +35,7 @@ int			get_max_len(t_select *select)
 	len = ft_strlen(tmp->arg);
 	while (tmp)
 	{
-		if (len < (int)ft_strlen(tmp->arg))
+		if (len < ft_strlen(tmp->arg))
 			len = ft_strlen(tmp->arg);
 		tmp = tmp->next;
 	}

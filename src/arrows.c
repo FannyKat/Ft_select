@@ -6,7 +6,7 @@
 /*   By: fcatusse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/03 11:17:21 by fcatusse          #+#    #+#             */
-/*   Updated: 2019/05/13 14:29:04 by fcatusse         ###   ########.fr       */
+/*   Updated: 2019/05/13 17:02:24 by fcatusse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,12 @@ void			arrow_keys(t_select *select, char *buff)
 	move_down(select, buff);
 }
 
-char			*check_arrow(char *buff)
+char			*check_arrow(char *buff, t_select *select)
 {
 	char		*arrow;
 
 	arrow = buff;
-	if (ft_strlen(buff) >= 3 && buff[0] == 27)
+	if (ft_strlen(buff) >= 3 && buff[0] == 27 && !bad_window_size(select))
 	{
 		if (buff[1] == '[')
 		{
