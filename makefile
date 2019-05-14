@@ -35,7 +35,7 @@ $(OBJ_DIR)%.o:$(SRC_DIR)%.c
 	@$(CC) $(CFLAGS) -I$(LIB_DIR) -I$(INC) -o $@ -c $<
 	@printf "${CR_UP}${CLEAR}"
 
-$(NAME): lib $(OBJS)
+$(NAME): $(LIB) $(OBJS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIB) -ltermcap 
 	@echo "${PINK}FT_SELECT IS READY ✓${END}"	
 
